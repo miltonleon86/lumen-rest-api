@@ -1,0 +1,8 @@
+/vendor
+/.idea
+/resources/views/vendor
+/storage/api-docs
+/public/swagger-ui-assets
+Homestead.json
+Homestead.yaml
+/cache/

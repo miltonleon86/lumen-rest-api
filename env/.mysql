@@ -1,0 +1,5 @@
+MYSQL_USER=mytheresa
+MYSQL_PASSWORD=mytheresa
+MYSQL_ROOT_HOST=%
+MYSQL_ROOT_PASSWORD=mytheresa
+MYSQL_DATABASE=mytheresa

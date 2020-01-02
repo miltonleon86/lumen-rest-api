@@ -1,0 +1,15 @@
+FROM nginx:stable-alpine
+
+ARG BUILD_DATE="develop"
+ARG VCS_REF="develop"
+
+# The maintainer list^
+LABEL authors="Milton Leon <miltonleon86@gmail.com>"
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.vcs-ref=$VCS_REF
+
+COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /srv/api
+
+COPY public /srv/api/public

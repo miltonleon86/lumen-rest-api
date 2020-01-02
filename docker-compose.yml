@@ -1,0 +1,84 @@
+version: '3.4'
+
+networks:
+    mytheresa:
+
+volumes:
+    mysql_my_theresa_data:
+    mysql_my_theresa_test_data:
+
+services:
+    nginx-proxy:
+        image: jwilder/nginx-proxy:alpine
+        restart: always
+        networks:
+            - mytheresa
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - ./nginx-proxy.conf:/etc/nginx/proxy.conf
+
+    php:
+        image: service/php
+        container_name: php
+        build:
+            context: .
+            dockerfile: Dockerfile.php
+            cache_from:
+                - service/php
+        networks:
+            - mytheresa
+        depends_on:
+            - nginx-proxy
+        env_file:
+            - env/.env
+            - env/.env.xdebug
+        volumes:
+            - ./:/srv/api:rw,cached
+
+    nginx:
+        image: service/nginx
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
+            cache_from:
+                - service/nginx
+        networks:
+            - mytheresa
+        depends_on:
+            - php
+            - nginx-proxy
+        volumes:
+            - ./public:/srv/api/public:ro
+        environment:
+            - VIRTUAL_HOST=api.mytheresa.develop
+
+    db:
+        image: mysql/mysql-server:5.7
+        restart: always
+        networks:
+            mytheresa:
+                aliases:
+                - db_my_theresa
+        volumes:
+            - mysql_my_theresa_data:/var/lib/mysql
+        ports:
+            - 3306:3306
+        env_file:
+            - env/.mysql
+
+    db_test:
+        image: mysql/mysql-server:5.7
+        restart: always
+        networks:
+            mytheresa:
+                aliases:
+                - db_test_my_theresa
+        volumes:
+            - mysql_my_theresa_test_data:/var/lib/mysql
+        ports:
+            - 3308:3306
+        env_file:
+            - env/.mysql
