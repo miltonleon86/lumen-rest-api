@@ -55,3 +55,10 @@ seeded item ids: 1,2,3,4,5,6
 ```$bash
 docker exec -it php ./vendor/bin/phpunit
 ```
+
+* Todo:
+```$bash
+- Configure Github pipelines
+- Swagger Docs should use http on local env
+- Complete CRUD and test.
+```
