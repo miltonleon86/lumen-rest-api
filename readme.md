@@ -29,18 +29,15 @@
 ```$bash
 docker exec -it php php artisan migrate
 docker exec -it php php artisan db:seed
-
-Rolling back (Should not be needed)
-docker exec -it php php artisan migrate:rollback
 ```
 
 * Creating the docs
 ```$bash
 Publish all
-docker exec -it php artisan swagger-lume:publish
+docker exec -it php php artisan swagger-lume:publish
 
 Generate
-docker exec -it php artisan swagger-lume:generate
+docker exec -it php php artisan swagger-lume:generate
 
 Url
 http://api.mytheresa.develop/api/documentation
