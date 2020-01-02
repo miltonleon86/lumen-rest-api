@@ -35,7 +35,8 @@
     "scripts": {
         "post-install-cmd": [
             "cp -a vendor/swagger-api/swagger-ui/dist public/swagger-ui-assets"
-        ]
+        ],
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "preferred-install": "dist",
