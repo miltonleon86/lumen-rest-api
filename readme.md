@@ -21,7 +21,7 @@
 * Go to the folder root and run
 ```$bash
  docker-compose build
- docker-compose run -d
+ docker-compose up -d
  docker exec -it php composer install
 ```
 
@@ -51,6 +51,7 @@ seeded item ids: 1,2,3,4,5,6
 * Running Api and Unit tests
 ```$bash
 docker exec -it php ./vendor/bin/phpunit
+sudo chmod 777 -R storage/
 ```
 
 * Todo:
